@@ -1,0 +1,10 @@
+C:\SJAW\Visual Studio\saves\PROFILUS\PROFILUS\bin\Debug\PROFILUS.exe.config
+C:\SJAW\Visual Studio\saves\PROFILUS\PROFILUS\bin\Debug\PROFILUS.exe
+C:\SJAW\Visual Studio\saves\PROFILUS\PROFILUS\bin\Debug\PROFILUS.pdb
+C:\SJAW\Visual Studio\saves\PROFILUS\PROFILUS\obj\Debug\PROFILUS.csproj.AssemblyReference.cache
+C:\SJAW\Visual Studio\saves\PROFILUS\PROFILUS\obj\Debug\PROFILUS.Form1.resources
+C:\SJAW\Visual Studio\saves\PROFILUS\PROFILUS\obj\Debug\PROFILUS.Properties.Resources.resources
+C:\SJAW\Visual Studio\saves\PROFILUS\PROFILUS\obj\Debug\PROFILUS.csproj.GenerateResource.cache
+C:\SJAW\Visual Studio\saves\PROFILUS\PROFILUS\obj\Debug\PROFILUS.csproj.CoreCompileInputs.cache
+C:\SJAW\Visual Studio\saves\PROFILUS\PROFILUS\obj\Debug\PROFILUS.exe
+C:\SJAW\Visual Studio\saves\PROFILUS\PROFILUS\obj\Debug\PROFILUS.pdb
