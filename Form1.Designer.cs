@@ -29,15 +29,18 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea4 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend4 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series4 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.chart = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.BtnSettings = new System.Windows.Forms.Button();
             this.roundedButton1 = new PROFILUS.RoundedButton();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.LabelConnectStatus = new System.Windows.Forms.Label();
+            this.btnStop = new System.Windows.Forms.Button();
+            this.btnConnect = new System.Windows.Forms.Button();
             this.gBox_ComPort = new System.Windows.Forms.GroupBox();
             this.cBoxParityBits = new System.Windows.Forms.ComboBox();
             this.cBoxStopBits = new System.Windows.Forms.ComboBox();
@@ -53,10 +56,8 @@
             this.tBoxDataIn = new System.Windows.Forms.TextBox();
             this.btnClearDataIn = new System.Windows.Forms.Button();
             this.btnsave = new System.Windows.Forms.Button();
-            this.btnConnect = new System.Windows.Forms.Button();
-            this.btnStop = new System.Windows.Forms.Button();
-            this.LabelConnectStatus = new System.Windows.Forms.Label();
             this.serialPort1 = new System.IO.Ports.SerialPort(this.components);
+            this.timer = new System.Windows.Forms.Timer(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.chart)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.gBox_ComPort.SuspendLayout();
@@ -64,18 +65,18 @@
             // 
             // chart
             // 
-            chartArea4.Name = "ChartArea1";
-            this.chart.ChartAreas.Add(chartArea4);
-            legend4.Name = "Legend1";
-            this.chart.Legends.Add(legend4);
+            chartArea1.Name = "ChartArea1";
+            this.chart.ChartAreas.Add(chartArea1);
+            legend1.Name = "Legend1";
+            this.chart.Legends.Add(legend1);
             this.chart.Location = new System.Drawing.Point(12, 366);
             this.chart.Name = "chart";
-            series4.ChartArea = "ChartArea1";
-            series4.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            series4.LabelForeColor = System.Drawing.Color.BlanchedAlmond;
-            series4.Legend = "Legend1";
-            series4.Name = "surface";
-            this.chart.Series.Add(series4);
+            series1.ChartArea = "ChartArea1";
+            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series1.LabelForeColor = System.Drawing.Color.BlanchedAlmond;
+            series1.Legend = "Legend1";
+            series1.Name = "surface";
+            this.chart.Series.Add(series1);
             this.chart.Size = new System.Drawing.Size(619, 250);
             this.chart.TabIndex = 1;
             this.chart.Text = "One";
@@ -123,6 +124,38 @@
             this.groupBox1.TabIndex = 3;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Входящие данные";
+            // 
+            // LabelConnectStatus
+            // 
+            this.LabelConnectStatus.BackColor = System.Drawing.Color.OldLace;
+            this.LabelConnectStatus.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.LabelConnectStatus.Location = new System.Drawing.Point(468, 316);
+            this.LabelConnectStatus.Name = "LabelConnectStatus";
+            this.LabelConnectStatus.Size = new System.Drawing.Size(249, 23);
+            this.LabelConnectStatus.TabIndex = 19;
+            this.LabelConnectStatus.Text = "Статус: Неподключено.";
+            this.LabelConnectStatus.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // btnStop
+            // 
+            this.btnStop.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.btnStop.Location = new System.Drawing.Point(601, 280);
+            this.btnStop.Name = "btnStop";
+            this.btnStop.Size = new System.Drawing.Size(116, 27);
+            this.btnStop.TabIndex = 18;
+            this.btnStop.Text = "Stop";
+            this.btnStop.UseVisualStyleBackColor = true;
+            // 
+            // btnConnect
+            // 
+            this.btnConnect.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.btnConnect.Location = new System.Drawing.Point(468, 280);
+            this.btnConnect.Name = "btnConnect";
+            this.btnConnect.Size = new System.Drawing.Size(116, 27);
+            this.btnConnect.TabIndex = 17;
+            this.btnConnect.Text = "Connect";
+            this.btnConnect.UseVisualStyleBackColor = true;
+            this.btnConnect.Click += new System.EventHandler(this.btnConnect_Click);
             // 
             // gBox_ComPort
             // 
@@ -191,7 +224,8 @@
             this.cBoxBaudRate.Items.AddRange(new object[] {
             "2400",
             "4800",
-            "9600"});
+            "9600",
+            "115200"});
             this.cBoxBaudRate.Location = new System.Drawing.Point(122, 78);
             this.cBoxBaudRate.Name = "cBoxBaudRate";
             this.cBoxBaudRate.Size = new System.Drawing.Size(121, 28);
@@ -300,38 +334,6 @@
             this.btnsave.Text = "SAVE";
             this.btnsave.UseVisualStyleBackColor = false;
             // 
-            // btnConnect
-            // 
-            this.btnConnect.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.btnConnect.Location = new System.Drawing.Point(468, 280);
-            this.btnConnect.Name = "btnConnect";
-            this.btnConnect.Size = new System.Drawing.Size(116, 27);
-            this.btnConnect.TabIndex = 17;
-            this.btnConnect.Text = "Connect";
-            this.btnConnect.UseVisualStyleBackColor = true;
-            this.btnConnect.Click += new System.EventHandler(this.btnConnect_Click);
-            // 
-            // btnStop
-            // 
-            this.btnStop.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.btnStop.Location = new System.Drawing.Point(601, 280);
-            this.btnStop.Name = "btnStop";
-            this.btnStop.Size = new System.Drawing.Size(116, 27);
-            this.btnStop.TabIndex = 18;
-            this.btnStop.Text = "Stop";
-            this.btnStop.UseVisualStyleBackColor = true;
-            // 
-            // LabelConnectStatus
-            // 
-            this.LabelConnectStatus.BackColor = System.Drawing.Color.OldLace;
-            this.LabelConnectStatus.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.LabelConnectStatus.Location = new System.Drawing.Point(468, 316);
-            this.LabelConnectStatus.Name = "LabelConnectStatus";
-            this.LabelConnectStatus.Size = new System.Drawing.Size(249, 23);
-            this.LabelConnectStatus.TabIndex = 19;
-            this.LabelConnectStatus.Text = "Статус: Неподключено.";
-            this.LabelConnectStatus.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 13F);
@@ -384,6 +386,7 @@
         private System.Windows.Forms.Button btnConnect;
         private System.Windows.Forms.Label LabelConnectStatus;
         private System.IO.Ports.SerialPort serialPort1;
+        private System.Windows.Forms.Timer timer;
     }
 }
 

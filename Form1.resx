@@ -124,7 +124,7 @@
   <data name="BtnSettings.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAAIAAAACACAYAAADDPmHLAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
-        vgAADr4B6kKxwAAAFXlJREFUeF7tXQmUZFV5ZhKUGEQS4opLjJ6jMSpEwDXqCL3MJOGQiNPTVc1IO73N
+        vQAADr0BR/uQrQAAFXlJREFUeF7tXQmUZFV5ZhKUGEQS4opLjJ6jMSpEwDXqCL3MJOGQiNPTVc1IO73N
         9KtuZZwzh4GerocTEsRxYLrfm4GOBMSYoxCSeFBQceMgCrgcBhnGo7iyKIrDMgiyTuf7/3v/++6r9b1X
         r6qnqt5/zt+3qt5dv//7/3vv2/qQTNIV13X/qGeo8MaTVheO68lNvymO9g9NHt+fn/prXVUmbSbL6M8p
         IyNH9OUL90AX+3KFJ/vyzlNRtDfvPEFlenOFW6UuK82kDcQigHMfEyBfOKDTutqbc57hNF+4Xeqy0kza
@@ -221,5 +221,8 @@
   </data>
   <metadata name="serialPort1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>179, 17</value>
+  </metadata>
+  <metadata name="timer.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>288, 17</value>
   </metadata>
 </root>

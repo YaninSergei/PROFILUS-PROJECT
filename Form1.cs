@@ -4,6 +4,10 @@ using System.Windows.Forms;
 using System.Drawing;
 using System.IO.Ports;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+using static PROFILUS.Entry;
+using static PROFILUS.IShowEntries;
+using static PROFILUS.WProtocolParser;
+using System.Collections.Generic;
 
 
 
@@ -25,14 +29,40 @@ namespace PROFILUS
             FormBorderStyle = FormBorderStyle.FixedSingle;
             string[] ports = SerialPort.GetPortNames(); // Получаем список имен последовательных портов.
             cBoxComPort.Items.AddRange(ports); // отображение всех портов в выподающем списке cBoxComPort
+            
             // Настройки поумолчанию:
-            Parser = new WProtocolParser(this);
+            //Parser = new WProtocolParser(this);
+            
         }
 
-        private void roundedButton1_Click(object sender, EventArgs e)
+        public void timer_Tick(object sender, EventArgs e)
         {
+            DateTime timNow = DateTime.Now;
+            Int32 ticks = (Int32)timNow.Ticks;
+            WProtocolParser Parser = new WProtocolParser();
+
+            int sinusoida(double t, double A, double W)
+            {
+
+                double X = A * Math.Sin(W * t);
+                return Convert.ToInt32(X);
+            }
+            string Znachenie = Convert.ToString(sinusoida(Convert.ToDouble(ticks) / 10000000, 100, 0.5))
+                + "," + Convert.ToString(sinusoida(Convert.ToDouble(ticks) / 10000000, 80, 0.5))
+                + "," + Convert.ToString(sinusoida(Convert.ToDouble(ticks) / 10000000, 120, 0.5));
+
+            List<string> funcia (string Data)
+            {
+                List<string> entries = new List<string>();
+                for (int i = 0; i < Znachenie.Length; i++)
+                {
+                    Parser.WorkComPort(Znachenie, entries);
+                }
+                return entries;
+            }
 
         }
+
 
         private void btnConnect_Click(object sender, EventArgs e)// Обработчик событий при нажатии конпки "Connect".
                                                                  // C Помощью конструкции (try...catch..finally) обрабатываем исключения для перехвата ошибок. Вначале выполняются все инструкции в блоке try.
@@ -50,14 +80,12 @@ namespace PROFILUS
                 LabelConnectStatus.Text = "Статус: Подключено.";
                 btnConnect.Enabled = false;
                 btnStop.Enabled = true;
-
-
-                /*if (serialPort1.IsOpen)
+                timer.Enabled = true;
+                if (!serialPort1.IsOpen | !timer.Enabled)
                 {
-                    //MessageBox.Show("Подключение выполненно!", "Сообщение", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1, MessageBoxOptions.DefaultDesktopOnly);
-                    LabelConnectStatus.BackColor = Color.Lime;
-                    LabelConnectStatus.Text = "Статус: Подключено.";
-                }*/
+                    System.Windows.Forms.Application.Exit();
+                }
+
             }
             // Если в блоке try возникает исключение, то порядок выполнения останавливается, и среда CLR начинает искать блок catch, который может обработать данное исключение.
             // Если нужный блок catch найден, то он выполняется, и после его завершения выполняется блок finally.
@@ -81,6 +109,10 @@ namespace PROFILUS
                 btnConnect.Enabled = true;
                 btnStop.Enabled = false;
             }
+        }
+        private void roundedButton1_Click(object sender, EventArgs e)
+        {
+
         }
 
     }
